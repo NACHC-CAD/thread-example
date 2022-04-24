@@ -32,6 +32,11 @@ public class WidgetFactory {
 			WidgetRunnable runnable = new WidgetRunnable(widget);
 			executor.execute(runnable);
 		}
+		try {
+			executor.awaitTermination(1000, TimeUnit.HOURS);
+		} catch(Exception exp) {
+			throw(new RuntimeException(exp));
+		}
 		log.info("SHUTTING DOWN----------------");
 		executor.shutdown();
 	}
