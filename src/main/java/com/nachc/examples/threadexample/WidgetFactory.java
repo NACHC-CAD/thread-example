@@ -26,15 +26,11 @@ public class WidgetFactory {
 	
 	public void makeWidgets() {
 		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(batchSize);
+		log.info("Building " + howMany + " widgets...");
 		for (int i = 0; i < howMany; i++) {
 			Widget widget = new Widget(lotNumber, i);
 			WidgetRunnable runnable = new WidgetRunnable(widget);
 			executor.execute(runnable);
-		}
-		try {
-			executor.awaitTermination(1000, TimeUnit.HOURS);
-		} catch(Exception exp) {
-			throw(new RuntimeException(exp));
 		}
 		log.info("SHUTTING DOWN----------------");
 		executor.shutdown();
