@@ -34,6 +34,11 @@ public class WidgetFactory {
 		}
 		log.info("SHUTTING DOWN----------------");
 		executor.shutdown();
+		try {
+			executor.awaitTermination(1000, TimeUnit.HOURS);
+		} catch(Exception exp) {
+			throw(new RuntimeException(exp));
+		}
 	}
 
 }
